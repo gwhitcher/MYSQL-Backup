@@ -1,12 +1,14 @@
 <?php
-//error_reporting(0);
+error_reporting(0); //turn on or off error reporting.
 
 //CONFIGURE
-backup_tables('localhost','username','password','database');
-$path = '/path/to/files/';
-$days = 7;
-$hours = 24;
-$seconds = 3600;
+backup_tables('localhost','username','password','database'); //database information
+$path = '/path/to/files/'; //path to mysql folder.
+
+//Time in which to save backups.
+$days = 7; //days in which to save backups
+$hours = 24; //hours in which to save backups
+$seconds = 3600; //seconds in which to save backups
 
 //DO NOT EDIT BELOW THIS LINE
 function backup_tables($host,$user,$pass,$name,$tables = '*')
@@ -71,7 +73,6 @@ if ($handle = opendir($path)) {
         $filelastmodified = filemtime($path . $file);
         //Permissions needed for some servers.
         chmod($path.$file, 0777);
-        //7 days in a week * 24 hours in a day * 3600 seconds per hour
         if((time() - $filelastmodified) > $days*$hours*$seconds)
         {
             unlink($path.$file);
